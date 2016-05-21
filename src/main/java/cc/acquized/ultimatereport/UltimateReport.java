@@ -19,7 +19,7 @@ import cc.acquized.ultimatereport.commands.LatestReportsCommand;
 import cc.acquized.ultimatereport.commands.ReportCommand;
 import cc.acquized.ultimatereport.commands.ToggleCommand;
 import cc.acquized.ultimatereport.commands.UltimateReportCommand;
-import cc.acquized.ultimatereport.files.Config;
+import cc.acquized.ultimatereport.config.Config;
 import cc.acquized.ultimatereport.hub.NotificationHub;
 import cc.acquized.ultimatereport.i18n.I18n;
 import cc.acquized.ultimatereport.libs.mcuuid.handlers.BungeeHandler;
@@ -39,26 +39,25 @@ public class UltimateReport extends Plugin {
 
     public static String pr = "&7[&3UltimateReport&7] &r";
     private UltimateReportAPI api;
-    private static Config config;
     private static UltimateReport instance;
 
     @Override
     public void onEnable() {
         instance = this;
-        config = new Config();
+        new Config().load();
+        pr = Config.getInstance().prefix;
         I18n.loadLocales();
         SQLManager.connect();
         api = new UltimateReportAPI();
         registerListeners();
         registerCommands();
         UUIDAPI.setHandler(new BungeeHandler(this));
-        UUIDAPI.setRegion(ServerRegion.valueOf(getConfig().getConfig().getString("UltimateReport.ConvertServer").toUpperCase()));
+        UUIDAPI.setRegion(ServerRegion.valueOf(Config.getInstance().server.toUpperCase()));
     }
 
     @Override
     public void onDisable() {
         SQLManager.disconnect();
-        config.save();
         instance = null;
     }
 
@@ -91,11 +90,6 @@ public class UltimateReport extends Plugin {
     @NotNull
     public UltimateReportAPI getAPI() {
         return api;
-    }
-
-    @NotNull
-    public static Config getConfig() {
-        return config;
     }
 
     @NotNull

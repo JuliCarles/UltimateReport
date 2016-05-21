@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.sql;
 
-import cc.acquized.ultimatereport.UltimateReport;
+import cc.acquized.ultimatereport.config.Config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -34,11 +34,11 @@ public class Connector {
     private HikariDataSource dataSource;
 
     public Connector() {
-        adress = UltimateReport.getConfig().getConfig().getString("MySQL.Adress");
-        port = UltimateReport.getConfig().getConfig().getInt("MySQL.Port");
-        database = UltimateReport.getConfig().getConfig().getString("MySQL.Database");
-        username = UltimateReport.getConfig().getConfig().getString("MySQL.Username");
-        password = UltimateReport.getConfig().getConfig().getString("MySQL.Password");
+        adress = Config.getInstance().adress;
+        port = Config.getInstance().port;
+        database = Config.getInstance().database;
+        username = Config.getInstance().username;
+        password = Config.getInstance().password;
     }
 
     public void connect() {

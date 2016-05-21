@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.commands;
 
-import cc.acquized.ultimatereport.UltimateReport;
+import cc.acquized.ultimatereport.config.Config;
 import cc.acquized.ultimatereport.i18n.I18n;
 import cc.acquized.ultimatereport.logger.Logger;
 import net.md_5.bungee.api.CommandSender;
@@ -35,7 +35,7 @@ public class UltimateReportCommand extends Command {
             if(args.length == 1) {
                 if(args[0].equalsIgnoreCase("reload")) {
                     try {
-                        UltimateReport.getConfig().reload();
+                        Config.getInstance().reload();
                     } catch (Exception ex) {
                         sender.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Main.Failure")));
                         ex.printStackTrace();

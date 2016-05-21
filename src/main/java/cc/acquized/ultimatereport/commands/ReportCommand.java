@@ -15,6 +15,7 @@
 package cc.acquized.ultimatereport.commands;
 
 import cc.acquized.ultimatereport.UltimateReport;
+import cc.acquized.ultimatereport.config.Config;
 import cc.acquized.ultimatereport.hub.NotificationHub;
 import cc.acquized.ultimatereport.i18n.I18n;
 import cc.acquized.ultimatereport.utils.Report;
@@ -67,7 +68,7 @@ public class ReportCommand extends Command {
                                             public void run() {
                                                 inCooldown.remove(p);
                                             }
-                                        }, UltimateReport.getConfig().getConfig().getLong("UltimateReport.Cooldown"), TimeUnit.SECONDS);
+                                        }, Config.getInstance().cooldown, TimeUnit.SECONDS);
                                     }
                                     p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Report.Success")));
                                 } else {

@@ -12,32 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cc.acquized.ultimatereport.files.framework;
+package cc.acquized.ultimatereport.libs.acquized.config;
 
 import cc.acquized.ultimatereport.UltimateReport;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-@SuppressWarnings({"ResultOfMethodCallIgnored", "deprecation"})
-public class CustomFile {
+public class UltimateConfig {
 
-    public File file;
-    public Configuration config;
+    private final File file;
+    private Configuration config;
 
-    public CustomFile(File file) {
+    public UltimateConfig(File file) {
         this.file = file;
+        load();
     }
 
-    /**
-     * Loads the Config and if it doesn't exists, writes it and loads it then.
-     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void load() {
         try {
             if(!file.getParentFile().isDirectory()) {
@@ -48,41 +44,27 @@ public class CustomFile {
             }
             config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
         } catch (IOException ex) {
-            ProxyServer.getInstance().getConsole().sendMessage("[UltimateReport] An error occured.");
             ex.printStackTrace();
         }
     }
 
-    /**
-     * Saves the current Config
-     */
-    public void save() {
-        try {
-            if((config != null) && (file != null)) {
-                ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
-            }
-        } catch (IOException ex) {
-            ProxyServer.getInstance().getConsole().sendMessage("[UltimateReport] An error occured.");
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * Reloads the current config
-     */
     public void reload() {
-        save();
+        config = null;
         load();
     }
 
-    @NotNull
-    public Configuration getConfig() {
-        return config;
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void regenerate() {
+        file.delete();
+        load();
     }
 
-    @NotNull
     public File getFile() {
         return file;
+    }
+
+    public Configuration getConfig() {
+        return config;
     }
 
 }

@@ -18,7 +18,7 @@ UltimateReport:
   # Should a few Messages be clickable? For example when a user reports another user, you can click on the Message to join the Server of the reported User
   ClickableMsgs: true
   # Don't change this unless you want reset your config on startup
-  Version: 2.0
+  Version: '2.0'
 
 Logging:
   # Should Reports be logged to a File
