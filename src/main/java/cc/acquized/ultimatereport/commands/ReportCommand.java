@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.commands;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import cc.acquized.ultimatereport.hub.NotificationHub;
 import cc.acquized.ultimatereport.i18n.I18n;
 import cc.acquized.ultimatereport.utils.Report;
@@ -62,12 +62,12 @@ public class ReportCommand extends Command {
                                     }
                                     if(!p.hasPermission("ultimatereport.bypass.cooldown")) {
                                         inCooldown.add(p);
-                                        ProxyServer.getInstance().getScheduler().schedule(Main.getInstance(), new Runnable() {
+                                        ProxyServer.getInstance().getScheduler().schedule(UltimateReport.getInstance(), new Runnable() {
                                             @Override
                                             public void run() {
                                                 inCooldown.remove(p);
                                             }
-                                        }, Main.getConfig().getConfig().getLong("UltimateReport.Cooldown"), TimeUnit.SECONDS);
+                                        }, UltimateReport.getConfig().getConfig().getLong("UltimateReport.Cooldown"), TimeUnit.SECONDS);
                                     }
                                     p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Report.Success")));
                                 } else {

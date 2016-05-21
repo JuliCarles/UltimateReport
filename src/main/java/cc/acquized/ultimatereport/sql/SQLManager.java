@@ -15,17 +15,12 @@
 package cc.acquized.ultimatereport.sql;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SQLManager {
 
-    private static Connector connector;
-
-    public SQLManager() {
-        connector = new Connector();
-    }
+    private static Connector connector = new Connector();
 
     public static void update(String qry) {
         connector.update(qry);
@@ -51,10 +46,11 @@ public class SQLManager {
 
     public static void disconnect() { connector.disconnect(); }
 
-    public static void close(Connection conn, PreparedStatement ps, ResultSet res) {
+    /*public static void close(Connection conn, PreparedStatement ps, ResultSet res) {
         if (conn != null) try { conn.close(); } catch (SQLException ignored) {}
         if (ps != null) try { ps.close(); } catch (SQLException ignored) {}
         if (res != null) try { res.close(); } catch (SQLException ignored) {}
     }
+    Useless because Hikari automaticly closes them after a time. */
 
 }

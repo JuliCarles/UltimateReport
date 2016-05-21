@@ -14,19 +14,18 @@
  */
 package cc.acquized.ultimatereport.commands;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import cc.acquized.ultimatereport.i18n.I18n;
 import cc.acquized.ultimatereport.utils.ConverterCache;
 import cc.acquized.ultimatereport.utils.Report;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-public class LatestReports extends Command {
+public class LatestReportsCommand extends Command {
 
-    public LatestReports() {
+    public LatestReportsCommand() {
         super("latest", null, "latestreports", "reports");
     }
 
@@ -50,13 +49,15 @@ public class LatestReports extends Command {
                     return;
                 }
                 p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Latest.Waiting")));
-                Report[] reports = Main.getInstance().getAPI().getLatestReports(amount);
+                Report[] reports = UltimateReport.getInstance().getAPI().getLatestReports(amount);
                 p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Latest.Header").replaceAll("%amount%", String.valueOf(amount))));
                 for(Report r : reports) {
                     String target = ConverterCache.convertToUsername(r.getTarget());
                     String reporter = ConverterCache.convertToUsername(r.getReporter());
                     p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Latest.Report").replaceAll("%target%", target).replaceAll("%reporter%", reporter).replaceAll("%reason%", r.getReason())));
                 }
+            } else {
+                p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.General.NoPermissions")));
             }
         } else {
             sender.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.General.NoConsole")));

@@ -14,12 +14,41 @@
  */
 package cc.acquized.ultimatereport.api;
 
+import cc.acquized.ultimatereport.sql.SQLManager;
 import cc.acquized.ultimatereport.utils.Report;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class UltimateReportAPI {
 
     public Report[] getLatestReports(int amount) {
-        return null;
+        List<Report> reports = new ArrayList<>();
+        ResultSet rs = SQLManager.query("SELECT * FROM `waitingqueue` LIMIT " + amount);
+        try {
+            while(rs.next()) {
+                reports.add(new Report(UUID.fromString(rs.getString("reporter")), UUID.fromString(rs.getString("target")), rs.getString("reason")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return reports.toArray(new Report[reports.size()]);
+    }
+
+    public Report[] getWaitingReports() {
+        List<Report> reports = new ArrayList<>();
+        ResultSet rs = SQLManager.query("SELECT * FROM `waitingqueue`");
+        try {
+            while(rs.next()) {
+                reports.add(new Report(UUID.fromString(rs.getString("reporter")), UUID.fromString(rs.getString("target")), rs.getString("reason")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return reports.toArray(new Report[reports.size()]);
     }
 
 }

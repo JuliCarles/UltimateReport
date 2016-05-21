@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.i18n;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import java.nio.file.Files;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class I18nFiles {
 
-    private static File directory = new File(Main.getInstance().getDataFolder() + File.separator + "locale");
+    private static File directory = new File(UltimateReport.getInstance().getDataFolder() + File.separator + "locale");
 
     public static void copy() {
         try {
@@ -33,7 +33,7 @@ public class I18nFiles {
             for(String s : I18n.supported) {
                 File f = new File(directory, "messages_" + s + ".properties");
                 if(!f.exists()) {
-                    Files.copy(Main.getInstance().getResourceAsStream(f.getName()), f.toPath());
+                    Files.copy(UltimateReport.getInstance().getResourceAsStream(f.getName()), f.toPath());
                 }
             }
         } catch (IOException ex) {

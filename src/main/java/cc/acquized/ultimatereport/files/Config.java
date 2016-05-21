@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.files;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import cc.acquized.ultimatereport.files.framework.CustomFile;
 import net.md_5.bungee.api.ChatColor;
 
@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Config extends CustomFile {
 
     public Config() {
-        super(new File(Main.getInstance().getDataFolder(), "config.yml"));
+        super(new File(UltimateReport.getInstance().getDataFolder(), "config.yml"));
         load();
     }
 
@@ -32,11 +32,11 @@ public class Config extends CustomFile {
     @Override
     public void load() {
         super.load();
-        if(!Objects.equals(getConfig().getString("UltimateReport.Version"), Main.getInstance().getDescription().getVersion())) {
-            file.renameTo(new File(Main.getInstance().getDataFolder(), "config-v" + getConfig().getString("UltimateReport.Version") + ".yml"));
+        if(!Objects.equals(getConfig().getString("UltimateReport.Version"), UltimateReport.getInstance().getDescription().getVersion())) {
+            file.renameTo(new File(UltimateReport.getInstance().getDataFolder(), "config-v" + getConfig().getString("UltimateReport.Version") + ".yml"));
             load();
         }
-        Main.pr = ChatColor.translateAlternateColorCodes('&', getConfig().getString("UltimateReport.Prefix"));
+        UltimateReport.pr = ChatColor.translateAlternateColorCodes('&', getConfig().getString("UltimateReport.Prefix"));
     }
 
 }

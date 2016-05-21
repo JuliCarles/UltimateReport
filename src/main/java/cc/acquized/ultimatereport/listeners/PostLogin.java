@@ -14,7 +14,12 @@
  */
 package cc.acquized.ultimatereport.listeners;
 
+import cc.acquized.ultimatereport.UltimateReport;
 import cc.acquized.ultimatereport.hub.NotificationHub;
+import cc.acquized.ultimatereport.i18n.I18n;
+import cc.acquized.ultimatereport.utils.Report;
+import net.mcapi.uuid.UUIDAPI;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -25,8 +30,12 @@ public class PostLogin implements Listener {
     @EventHandler
     public void onJoin(PostLoginEvent e) {
         ProxiedPlayer p = e.getPlayer();
-        if((p.hasPermission("ultimatereport.offline.notify")) && (!NotificationHub.noNotifications.contains(p))) {
-            
+        if((p.hasPermission("ultimatereport.offline.notify")) && (!NotificationHub.noNotifications.contains(p)) && (UltimateReport.getInstance().getAPI().getWaitingReports().length > 0)) {
+            p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Notification.Join")));
+            for(Report r : UltimateReport.getInstance().getAPI().getWaitingReports()) {
+                p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Notification.Offline").replaceAll("%target%",
+                UUIDAPI.getUsername(r.getTarget())).replaceAll("%reporter%", UUIDAPI.getUsername(r.getReporter())).replaceAll("%reason%", r.getReason())));
+            }
         }
     }
 

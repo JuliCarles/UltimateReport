@@ -14,8 +14,7 @@
  */
 package cc.acquized.ultimatereport.i18n;
 
-import cc.acquized.ultimatereport.Main;
-import cc.acquized.ultimatereport.files.Config;
+import cc.acquized.ultimatereport.UltimateReport;
 import net.md_5.bungee.api.ChatColor;
 
 import java.net.MalformedURLException;
@@ -35,7 +34,7 @@ public class I18n {
         I18nFiles.copy();
         try {
             ClassLoader loader = new URLClassLoader(new URL[]{ I18nFiles.getDirectory().toURI().toURL() });
-            bundle = ResourceBundle.getBundle("messages", new Locale(Main.getConfig().getConfig().getString("UltimateReport.Locale")), loader);
+            bundle = ResourceBundle.getBundle("messages", new Locale(UltimateReport.getConfig().getConfig().getString("UltimateReport.Locale")), loader);
         } catch (MalformedURLException ex) {
             ex.printStackTrace();
         }
@@ -43,7 +42,7 @@ public class I18n {
 
     public static String getMessage(String path) {
         try {
-            return ChatColor.translateAlternateColorCodes('&', Main.pr + bundle.getString(path));
+            return ChatColor.translateAlternateColorCodes('&', UltimateReport.pr + bundle.getString(path));
         } catch (NullPointerException ex) {
             // key could not be found
             return null;

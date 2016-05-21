@@ -15,7 +15,9 @@
 package cc.acquized.ultimatereport;
 
 import cc.acquized.ultimatereport.api.UltimateReportAPI;
+import cc.acquized.ultimatereport.commands.LatestReportsCommand;
 import cc.acquized.ultimatereport.commands.ReportCommand;
+import cc.acquized.ultimatereport.commands.ToggleCommand;
 import cc.acquized.ultimatereport.commands.UltimateReportCommand;
 import cc.acquized.ultimatereport.files.Config;
 import cc.acquized.ultimatereport.hub.NotificationHub;
@@ -33,12 +35,12 @@ import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class Main extends Plugin {
+public class UltimateReport extends Plugin {
 
     public static String pr = "&7[&3UltimateReport&7] &r";
     private UltimateReportAPI api;
     private static Config config;
-    private static Main instance;
+    private static UltimateReport instance;
 
     @Override
     public void onEnable() {
@@ -64,6 +66,8 @@ public class Main extends Plugin {
         PluginManager pm = ProxyServer.getInstance().getPluginManager();
         pm.registerCommand(this, new ReportCommand());
         pm.registerCommand(this, new UltimateReportCommand());
+        pm.registerCommand(this, new LatestReportsCommand());
+        pm.registerCommand(this, new ToggleCommand());
     }
 
     private void registerListeners() {
@@ -95,7 +99,7 @@ public class Main extends Plugin {
     }
 
     @NotNull
-    public static Main getInstance() {
+    public static UltimateReport getInstance() {
         return instance;
     }
 

@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.commands;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import cc.acquized.ultimatereport.i18n.I18n;
 import cc.acquized.ultimatereport.logger.Logger;
 import net.md_5.bungee.api.CommandSender;
@@ -35,7 +35,7 @@ public class UltimateReportCommand extends Command {
             if(args.length == 1) {
                 if(args[0].equalsIgnoreCase("reload")) {
                     try {
-                        Main.getConfig().reload();
+                        UltimateReport.getConfig().reload();
                     } catch (Exception ex) {
                         sender.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Main.Failure")));
                         ex.printStackTrace();
@@ -45,7 +45,7 @@ public class UltimateReportCommand extends Command {
                 } else if(args[0].equalsIgnoreCase("debug")) {
                     if(!(sender instanceof ProxiedPlayer)) {
                         Logger.debug = !Logger.debug;
-                        sender.sendMessage(Logger.debug ? TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Commnad.Main.On")) : TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Commnad.Main.Off")));
+                        sender.sendMessage(Logger.debug ? TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Main.On")) : TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Main.Off")));
                     } else {
                         sender.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.General.OnlyConsole")));
                     }

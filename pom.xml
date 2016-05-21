@@ -6,7 +6,7 @@
 
     <groupId>cc.acquized</groupId>
     <artifactId>UltimateReport</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
     <url>https://github.com/Acquized/UltimateReport</url>
     <description>The first simple, working and easy to use BungeeCord Report Plugin</description>
@@ -201,7 +201,7 @@
                 <version>2.10.3</version>
                 <configuration>
                     <show>public</show>
-                    <excludePackageNames>cc.acquized.ultimatereport.commands:cc.acquized.ultimatereport.files:cc.acquized.ultimatereport.hub:cc.acquized.ultimatereport.i18n:cc.acquized.ultimatereport.logger:cc.acquized.ultimatereport.sql:cc.acquized.ultimatereport.utils</excludePackageNames>
+                    <excludePackageNames>cc.acquized.ultimatereport.commands:cc.acquized.ultimatereport.files:cc.acquized.ultimatereport.hub:cc.acquized.ultimatereport.i18n:cc.acquized.ultimatereport.logger:cc.acquized.ultimatereport.sql:cc.acquized.ultimatereport.utils:cc.acquized.ultimatereport.listeners:cc.acquized.ultimatereport.libs.mcuuid.handlers</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>

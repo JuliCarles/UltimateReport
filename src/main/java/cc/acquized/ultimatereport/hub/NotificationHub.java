@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.hub;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import cc.acquized.ultimatereport.i18n.I18n;
 import cc.acquized.ultimatereport.logger.Logger;
 import cc.acquized.ultimatereport.sql.SQLManager;
@@ -25,7 +25,6 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.plugin.Listener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class NotificationHub {
         if(staffOnline) {
             for(ProxiedPlayer o : ProxyServer.getInstance().getPlayers()) {
                 if(o.hasPermission("ultimatereport.reports.notify")) {
-                    if(Main.getConfig().getConfig().getBoolean("UltimateReport.ClickableMsg")) {
+                    if(UltimateReport.getConfig().getConfig().getBoolean("UltimateReport.ClickableMsg")) {
                         o.sendMessage(new ComponentBuilder(msg).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "server " + ProxyServer.getInstance().getPlayer(target).getServer().getInfo().getName()))
                         .create());
                     } else {
@@ -65,19 +64,19 @@ public class NotificationHub {
                 }
             }
         } else {
-            SQLManager.update("INSERT INTO `waitingqueue`(repDate, reporter, target, reason) VALUES (NOW(), " + r.getReporter().toString().replaceAll("-", "") + ", " + r.getTarget().toString().replaceAll("-", "") + ", " + r.getReason() + ");");
+            SQLManager.update("INSERT INTO `waitingqueue`(repDate, reporter, target, reason) VALUES (NOW(), '" + r.getReporter().toString().replaceAll("-", "") + "', '" + r.getTarget().toString().replaceAll("-", "") + "', '" + r.getReason() + "');");
         }
 
-        if(Main.getConfig().getConfig().getBoolean("Logging.File")) {
+        if(UltimateReport.getConfig().getConfig().getBoolean("Logging.File")) {
             Logger.logFile(I18n.getMessage("UltimateReport.Notification.File").replaceAll("%time%", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())).replaceAll("%target%", target).replaceAll("%reporter%", reporter).replaceAll("%reason%", r.getReason()).replaceAll("%server%", ProxyServer.getInstance().getPlayer(target).getServer().getInfo().getName()));
         }
 
-        if(Main.getConfig().getConfig().getBoolean("Logging.Console")) {
+        if(UltimateReport.getConfig().getConfig().getBoolean("Logging.Console")) {
             ProxyServer.getInstance().getConsole().sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Notification.Console").replaceAll("%target%", target).replaceAll("%reporter%", reporter).replaceAll("%reason%", r.getReason()).replaceAll("%server%", ProxyServer.getInstance().getPlayer(target).getServer().getInfo().getName())));
         }
 
-        if(Main.getConfig().getConfig().getBoolean("Logging.MySQL")) {
-            SQLManager.update("INSERT INTO `ultimatereport`(repDate, reporter, target, reason) VALUES (NOW(), " + r.getReporter().toString().replaceAll("-", "") + ", " + r.getTarget().toString().replaceAll("-", "") + ", " + r.getReason() + ");");
+        if(UltimateReport.getConfig().getConfig().getBoolean("Logging.MySQL")) {
+            SQLManager.update("INSERT INTO `ultimatereport`(repDate, reporter, target, reason) VALUES (NOW(), '" + r.getReporter().toString().replaceAll("-", "") + "', '" + r.getTarget().toString().replaceAll("-", "") + "', '" + r.getReason() + "');");
         }
 
     }

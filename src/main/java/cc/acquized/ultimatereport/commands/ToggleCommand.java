@@ -35,10 +35,10 @@ public class ToggleCommand extends Command {
                 if(args.length == 0) {
                     if(!NotificationHub.noNotifications.contains(p)) {
                         NotificationHub.noNotifications.add(p);
-                        p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Toggle.On")));
+                        p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Toggle.Off")));
                     } else {
                         NotificationHub.noNotifications.remove(p);
-                        p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Toggle.Off")));
+                        p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Toggle.On")));
                     }
                 } else {
                     p.sendMessage(TextComponent.fromLegacyText(I18n.getMessage("UltimateReport.Command.Toggle.Syntax")));

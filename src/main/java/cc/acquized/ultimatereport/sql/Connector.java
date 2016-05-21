@@ -14,29 +14,31 @@
  */
 package cc.acquized.ultimatereport.sql;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @SuppressWarnings("deprecation")
 public class Connector {
-
-    private HikariDataSource dataSource;
 
     private final String adress;
     private final int port;
     private final String database;
     private final String username;
     private final String password;
+    private HikariDataSource dataSource;
 
     public Connector() {
-        adress = Main.getConfig().getConfig().getString("MySQL.Adress");
-        port = Main.getConfig().getConfig().getInt("MySQL.Port");
-        database = Main.getConfig().getConfig().getString("MySQL.Database");
-        username = Main.getConfig().getConfig().getString("MySQL.Username");
-        password = Main.getConfig().getConfig().getString("MySQL.Password");
+        adress = UltimateReport.getConfig().getConfig().getString("MySQL.Adress");
+        port = UltimateReport.getConfig().getConfig().getInt("MySQL.Port");
+        database = UltimateReport.getConfig().getConfig().getString("MySQL.Database");
+        username = UltimateReport.getConfig().getConfig().getString("MySQL.Username");
+        password = UltimateReport.getConfig().getConfig().getString("MySQL.Password");
     }
 
     public void connect() {
@@ -66,15 +68,13 @@ public class Connector {
             ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            SQLManager.close(conn, ps, null);
         }
     }
 
     public ResultSet query(String qry) {
         Connection conn = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        ResultSet rs;
         try {
             conn = getConnection();
             ps = conn.prepareStatement(qry);
@@ -82,8 +82,6 @@ public class Connector {
             return rs;
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            SQLManager.close(conn, ps, rs);
         }
         return null;
     }

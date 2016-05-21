@@ -14,9 +14,8 @@
  */
 package cc.acquized.api.samples;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import cc.acquized.ultimatereport.api.AccessableAPI;
-import cc.acquized.ultimatereport.api.UltimateReportAPI;
 import cc.acquized.ultimatereport.utils.Report;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -27,7 +26,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 public class GetLatest5Reports implements AccessableAPI {
 
     public static void getLatestFiveReports() {
-        Report[] reports = Main.getInstance().getAPI().getLatestReports(5);
+        Report[] reports = UltimateReport.getInstance().getAPI().getLatestReports(5);
         for(Report r : reports) {
             ProxyServer.getInstance().getConsole().sendMessage(TextComponent.fromLegacyText("A Report m"));
         }

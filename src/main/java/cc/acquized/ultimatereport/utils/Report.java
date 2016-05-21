@@ -31,6 +31,12 @@ public class Report {
         this.reason = reason;
     }
 
+    public Report(UUID reporter, UUID target, String reason) {
+        this.reporter = reporter;
+        this.target = target;
+        this.reason = reason;
+    }
+
     public String getReason() {
         return reason;
     }

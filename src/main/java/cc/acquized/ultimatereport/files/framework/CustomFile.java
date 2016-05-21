@@ -14,7 +14,7 @@
  */
 package cc.acquized.ultimatereport.files.framework;
 
-import cc.acquized.ultimatereport.Main;
+import cc.acquized.ultimatereport.UltimateReport;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -44,7 +44,7 @@ public class CustomFile {
                 file.getParentFile().mkdirs();
             }
             if(!file.exists()) {
-                Files.copy(Main.getInstance().getResourceAsStream(file.getName()), file.toPath());
+                Files.copy(UltimateReport.getInstance().getResourceAsStream(file.getName()), file.toPath());
             }
             config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
         } catch (IOException ex) {
