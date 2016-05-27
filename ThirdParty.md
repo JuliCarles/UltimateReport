@@ -12,5 +12,5 @@ v2.0 | Apache Commons Lang | Apache v2.0 License | [Click me](https://github.com
 v2.0 | Google Guava | Apache v2.0 License | [Click me](https://github.com/google/guava/blob/master/COPYING)
 v2.0 | Unirest-Java | MIT License | [Click me](https://github.com/Mashape/unirest-java/blob/master/LICENSE)
 v2.0 | McUUID Java API | GNU General Public License v2.0 | [Click me](https://github.com/MC-API/uuid-java/blob/master/LICENSE)
-v2.1 | Bungee Utils | Unknown | [Click me](https://github.com/WolverinDEV/BungeeUtil)
+v2.1 | SocketAPI | Unknown | [Click me](https://github.com/RHazDev/SocketAPI)
 v2.1 | Lombok | MIT License | [Click me](https://github.com/rzwitserloot/lombok/blob/master/LICENSE)
